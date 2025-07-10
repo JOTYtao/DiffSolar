@@ -278,38 +278,3 @@ class MSInception(nn.Module):
             h = w = 16 // (2**(i+1))
             context[(h,h)] = ms_feat
         return context 
-if __name__ == "__main__":
-    # 设置随机种子以便结果可重现
-    torch.manual_seed(42)
-    
-    # 创建测试数据
-    x = torch.randn(2, 32, 8, 16, 16)
-    y = torch.randn(2, 32, 8, 16, 16)
-    
-    print("\n==== Model Architecture Test ====")
-    print(f"Input tensor shape: {x.shape}")
-    
-    # 创建模型
-    model = MSInception(channel_in=32, channel_hid=128, N_T=3)
-    
-    print("\n==== Layer Parameters ====")
-    total_params = sum(p.numel() for p in model.parameters())
-    print(f"Total parameters: {total_params:,}")
-    
-    print("\n==== Forward Pass ====")
-    output, context = model(x)
-    
-    # 打印shape信息
-    print("\n==== Output Shapes ====")
-    print(f"Main output: {output.shape}")
-    print("\nMulti-scale features:")
-    for size, feat in context.items():
-        print(f"Scale {size}: {feat.shape}")
-    
-    print("\n==== Summary ====")
-    print(f"Input shape: {x.shape}")
-    print(f"Output shape: {output.shape}")
-    
-    # 验证输出维度是否正确
-    assert output.shape == x.shape, "Output shape doesn't match input shape!"
-    print("\nShape verification passed!")
