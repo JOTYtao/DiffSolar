@@ -47,7 +47,7 @@ class DiffSolar(ModelMixin, ConfigMixin):
             block_out_channels=[128, 256, 512, 512],
             sample_size=128,
         )
-        self.vae_path = '/home/joty/code/solar_flow/checkpoints/VAE/epoch_epoch=132-val_loss_val/rec_loss=0.0489.ckpt'
+        self.vae_path = 'vae.ckpt'
         if self.vae_path is not None:
             state_dict = torch.load(self.vae_path, map_location=torch.device("cpu"))
             new_state_dict = {k.replace("model.", ""): v for k, v in state_dict['state_dict'].items()}
