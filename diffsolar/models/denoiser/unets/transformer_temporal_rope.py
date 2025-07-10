@@ -1,16 +1,4 @@
-# Copyright 2024 The HuggingFace Team. All rights reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+
 from dataclasses import dataclass
 from typing import Any, Dict, Optional
 
@@ -58,20 +46,7 @@ class TransformerTemporalModelOutput(BaseOutput):
 
 
 class TransformerSpatioTemporalModel(nn.Module):
-    """
-    A Transformer model for video-like data.
-
-    Parameters:
-        num_attention_heads (`int`, *optional*, defaults to 16): The number of heads to use for multi-head attention.
-        attention_head_dim (`int`, *optional*, defaults to 88): The number of channels in each head.
-        in_channels (`int`, *optional*):
-            The number of channels in the input and output (specify if the input is **continuous**).
-        out_channels (`int`, *optional*):
-            The number of channels in the output (specify if the input is **continuous**).
-        num_layers (`int`, *optional*, defaults to 1): The number of layers of Transformer blocks to use.
-        cross_attention_dim (`int`, *optional*): The number of `encoder_hidden_states` dimensions to use.
-    """
-
+   
     def __init__(
         self,
         num_attention_heads: int = 16,
@@ -143,27 +118,7 @@ class TransformerSpatioTemporalModel(nn.Module):
         return_dict: bool = True,
         position_ids: Optional[torch.Tensor] = None,
     ):
-        """
-        Args:
-            hidden_states (`torch.FloatTensor` of shape `(batch size, channel, height, width)`):
-                Input hidden_states.
-            num_frames (`int`):
-                The number of frames to be processed per batch. This is used to reshape the hidden states.
-            encoder_hidden_states ( `torch.LongTensor` of shape `(batch size, encoder_hidden_states dim)`, *optional*):
-                Conditional embeddings for cross attention layer. If not given, cross-attention defaults to
-                self-attention.
-            image_only_indicator (`torch.LongTensor` of shape `(batch size, num_frames)`, *optional*):
-                A tensor indicating whether the input contains only images. 1 indicates that the input contains only
-                images, 0 indicates that the input contains video frames.
-            return_dict (`bool`, *optional*, defaults to `True`):
-                Whether or not to return a [`~models.transformer_temporal.TransformerTemporalModelOutput`] instead of a plain
-                tuple.
-
-        Returns:
-            [`~models.transformer_temporal.TransformerTemporalModelOutput`] or `tuple`:
-                If `return_dict` is True, an [`~models.transformer_temporal.TransformerTemporalModelOutput`] is
-                returned, otherwise a `tuple` where the first element is the sample tensor.
-        """
+       
         # 1. Input
         batch_frames, channels, height, width = hidden_states.shape
         num_frames = image_only_indicator.shape[-1]
