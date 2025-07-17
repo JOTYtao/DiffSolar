@@ -28,7 +28,6 @@ class Pipeline(DiffusionPipeline):
         fix_init_noise=None
     ) -> Union[ImagePipelineOutput, Tuple]:
         x = self.model.encode(inputs)
-        x = self.model.encode(inputs)
         sp_forecasting = torch.tile(inputs[:, :, -1:], [1, 1, 8, 1, 1])
         sp = self.model.encode(sp_forecasting)
         batch_size = inputs.shape[0]
