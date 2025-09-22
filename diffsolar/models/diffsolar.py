@@ -34,7 +34,7 @@ class DiffSolar(ModelMixin, ConfigMixin):
             ),
             block_out_channels=(128, 256, 512, 512),
             N_T=3,
-            cross_attention_dim=512,
+            cross_attention_dim=(128, 256, 512, 512),
             channel_hid=256
         )
         self.vae = AutoencoderKL(
