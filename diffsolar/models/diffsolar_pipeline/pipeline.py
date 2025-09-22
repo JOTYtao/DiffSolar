@@ -23,7 +23,7 @@ class Pipeline(DiffusionPipeline):
         inputs,
         num_inference_steps: int = 1000,
         generator: Optional[Union[torch.Generator, List[torch.Generator]]] = None,
-        output_type: Optional[str] = "pil",
+        output_type: Optional[str] = "numpy",
         to_cpu=True,
         fix_init_noise=None
     ) -> Union[ImagePipelineOutput, Tuple]:
